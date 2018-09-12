@@ -1,0 +1,54 @@
+<html ng-app="myApp">
+    <head>
+        <title>
+            Contact List App
+        </title>
+        
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
+
+
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>  
+<script type="text/javascript" src="js/angular-route.min.js"></script>    
+  
+</head>
+    <body>
+        <div class="container" ng-controller="AppCtrl">
+       <h1>Contact List App</h1>
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Number</th>
+                      <th>Action</th>
+                      <th>&nbsp;</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><input  class="form-control" ng-model="contact.name" required></td>
+                     
+                      <td><input  class="form-control" ng-model="contact.email" required></td>
+                      <td><input  class="form-control" ng-model="contact.number" required></td>
+                      <td><button class="btn btn-primary" ng-click="addContact()">Add Contact</button></td>
+                      <td><button class="btn btn-info" ng-click="update()">Update</button></td>
+                      <td><button class="btn btn-info" ng-click="deselect()">clear</button></td>
+                      
+                  </tr>
+                  <tr ng-repeat="contact in contactList">
+                     <td>{{contact.name}}</td>
+                     <td>{{contact.email}}</td>
+                     <td>{{contact.number}}</td>
+                     <td><buuton class="btn btn-danger" ng-click="remove(contact._id)">Remove</buuton></td>
+                      <td><button class="btn btn-warning" ng-click="edit(contact._id)">Edit</button></td>
+                  </tr>
+            </tbody>
+          </table>
+    </div>
+   
+    <script  type="text/javascript" src="/controllers/controller.js"></script> 
+    </body>
+</html>
