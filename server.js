@@ -4,11 +4,21 @@ var express= require('express'),
             mongojs=require('mongojs');
 
     var db=mongojs('contactlist',['contactlist']);
-    var bodyPaser=require('body-parser');        
+    var bodyPaser=require('body-parser');   
+    var multer = require('multer');     
 
 
 app.use(express.static(__dirname +"/public"));
+//app.use(express.static('../public'));
 app.use(bodyPaser.json());
+
+app.use(function(req, res, next) { //allow cross origin requests
+    res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+    res.header("Access-Control-Allow-Origin", "http://localhost");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 
 app.get('/contactList', function(req,res){
     console.log("i received a GET request");
@@ -45,11 +55,37 @@ app.put('/contactList/:id',function(req,res){
     console.log(req.body.name);
     db.contactlist.findAndModify({
      query:{_id:mongojs.ObjectId(id)},
-     update:{$set:{name: req.body.name , email:req.body.email,number:req.body.number}},
+     update:{$set:{name: req.body.name , email:req.body.email,number:req.body.number, file:req.body.file}},
     new:true}, function(err,data){
          res.json(data);
      }   
     );
+});
+
+
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, './server/uploads/');
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+    }
+});
+
+var upload = multer({ //multer settings
+                storage: storage
+            }).single('file');
+
+/** API path that will upload the files */
+app.post('/upload', function(req, res) {
+    upload(req,res,function(err){
+        if(err){
+             res.json({error_code:1,err_desc:err});
+             return;
+        }
+         res.json({error_code:0,err_desc:null});
+    });
 });
 
 

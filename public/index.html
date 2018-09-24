@@ -9,6 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
 
 
+
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>  
 <script type="text/javascript" src="js/angular-route.min.js"></script>    
@@ -23,7 +24,11 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Number</th>
+                      <!--<th>Photo</th>-->
+                    
+                      <th>&nbsp;</th>
                       <th>Action</th>
+
                       <th>&nbsp;</th>
                   </tr>
               </thead>
@@ -31,8 +36,11 @@
                   <tr>
                       <td><input  class="form-control" ng-model="contact.name" required></td>
                      
-                      <td><input  class="form-control" ng-model="contact.email" required></td>
-                      <td><input  class="form-control" ng-model="contact.number" required></td>
+                      <td><input type="text"  class="form-control" ng-model="contact.email" required></td>
+                      <td><input type="text" class="form-control" ng-model="contact.number" required></td>
+                      
+                   
+                   
                       <td><button class="btn btn-primary" ng-click="addContact()">Add Contact</button></td>
                       <td><button class="btn btn-info" ng-click="update()">Update</button></td>
                       <td><button class="btn btn-info" ng-click="deselect()">clear</button></td>
@@ -42,13 +50,41 @@
                      <td>{{contact.name}}</td>
                      <td>{{contact.email}}</td>
                      <td>{{contact.number}}</td>
+                     <td>{{contact.photo}}</td>
+                     <td>{{}}</td>
                      <td><buuton class="btn btn-danger" ng-click="remove(contact._id)">Remove</buuton></td>
                       <td><button class="btn btn-warning" ng-click="edit(contact._id)">Edit</button></td>
                   </tr>
             </tbody>
           </table>
     </div>
+    
+        
    
-    <script  type="text/javascript" src="/controllers/controller.js"></script> 
+    <script  type="text/javascript" src="/controllers/controller.js"></script>
+    
     </body>
+   <!-- <body>
+            <div>
+                    <body ng-app="fileUpload">
+                        
+                          <form  ng-controller="MyCtrl as up" name="up.upload_form">
+                                 
+                              <input
+                                  type="file"  class="btn btn-info"
+                                  ngf-select 
+                                  ng-model="up.file" 
+                                  name="file"/>
+                             <button  class="btn btn-primary" type="submit" ng-click="up.submit()">submit</button>
+                             
+                          </form>
+                      </body>
+                       
+        
+                </div></body>
+                
+	<!--<script type="text/javascript" src="file/ng-file-upload/dist/ng-file-upload.min.js"></script>
+	<script type="text/javascript" src="file/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>-->
+                <!--<script type="text/javascript" src="main.js"></script>--> 
+    
 </html>

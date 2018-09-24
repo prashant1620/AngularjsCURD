@@ -4,12 +4,12 @@ var myApp=angular.module('myApp',[]);
 myApp.controller('AppCtrl',['$scope','$http', function($scope,$http){
     console.log("hello Controller");
 
-    var refresh =function(){
+    var refresh = function(){
     $http.get("/contactList").success(function(response){
         console.log('I got the data request');
 
         $scope.contactList=response;
-        $scope.contact="";
+        $scope.contact= "";
     });
 };
 
